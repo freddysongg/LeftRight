@@ -1,49 +1,83 @@
 import { Question } from './questions';
 
-interface Response {
-  questionId: string;
-  agreed: boolean;
+export interface AlignmentResult {
+  democrat: number;
+  republican: number;
+  primaryAlignment: 'democrat' | 'republican';
+  categoryAlignment: {
+    [key: string]: {
+      democrat: number;
+      republican: number;
+    };
+  };
 }
 
 export interface AlignmentResult {
-  republican: number;
   democrat: number;
-  primaryAlignment: 'republican' | 'democrat';
-  strength: number;
+  republican: number;
+  primaryAlignment: 'democrat' | 'republican';
+  categoryAlignment: {
+    [key: string]: {
+      democrat: number;
+      republican: number;
+    };
+  };
 }
 
 export function calculateAlignment(
   questions: Question[],
-  responses: Response[]
+  responses: Array<{ questionId: string; agreed: boolean }>
 ): AlignmentResult {
-  let republicanScore = 0;
-  let democratScore = 0;
+  const alignment = { democrat: 0, republican: 0 };
+  const categoryScores: {
+    [key: string]: { democrat: number; republican: number };
+  } = {};
 
-  responses.forEach((response) => {
-    const question = questions.find((q) => q.id === response.questionId);
+  responses.forEach(({ questionId, agreed }) => {
+    const question = questions.find((q) => q.id === questionId);
     if (!question) return;
 
-    if (response.agreed) {
-      republicanScore += question.weight.republican;
-      democratScore += question.weight.democrat;
-    } else {
-      republicanScore -= question.weight.republican;
-      democratScore -= question.weight.democrat;
+    const multiplier = agreed ? 1 : -1;
+    alignment.democrat += question.weight.democrat * multiplier;
+    alignment.republican += question.weight.republican * multiplier;
+
+    if (!categoryScores[question.category]) {
+      categoryScores[question.category] = { democrat: 0, republican: 0 };
     }
+    categoryScores[question.category].democrat +=
+      question.weight.democrat * multiplier;
+    categoryScores[question.category].republican +=
+      question.weight.republican * multiplier;
   });
 
-  const total = Math.abs(republicanScore) + Math.abs(democratScore);
-  const republicanPercentage = (republicanScore + total) / (2 * total);
-  const democratPercentage = (democratScore + total) / (2 * total);
+  // Normalize overall alignment to 100%
+  const total = Math.abs(alignment.democrat) + Math.abs(alignment.republican);
+  const normalizedAlignment = {
+    democrat: (Math.abs(alignment.democrat) / total) * 100,
+    republican: (Math.abs(alignment.republican) / total) * 100,
+  };
 
-  const primaryAlignment =
-    republicanPercentage > democratPercentage ? 'republican' : 'democrat';
-  const strength = Math.abs(republicanPercentage - democratPercentage);
+  // Normalize category alignment
+  const normalizedCategoryScores = Object.fromEntries(
+    Object.entries(categoryScores).map(([category, scores]) => {
+      const total = Math.abs(scores.democrat) + Math.abs(scores.republican);
+      return [
+        category,
+        {
+          democrat: (Math.abs(scores.democrat) / total) * 100,
+          republican: (Math.abs(scores.republican) / total) * 100,
+        },
+      ];
+    })
+  );
 
   return {
-    republican: republicanPercentage,
-    democrat: democratPercentage,
-    primaryAlignment,
-    strength,
+    democrat: normalizedAlignment.democrat,
+    republican: normalizedAlignment.republican,
+    primaryAlignment:
+      normalizedAlignment.democrat > normalizedAlignment.republican
+        ? 'democrat'
+        : 'republican',
+    categoryAlignment: normalizedCategoryScores,
   };
 }

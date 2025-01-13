@@ -1,29 +1,46 @@
 import { useState, useEffect } from 'react';
-import { questions } from '@/lib/questions';
-import { calculateAlignment } from '@/lib/calculate-alignment';
+import { questions, Question } from '@/lib/questions';
+import { calculateAlignment, AlignmentResult } from '@/lib/calculate-alignment';
 import { CardStack } from '@/components/CardStack';
 import { ResultScreen } from '@/components/ResultScreen';
-import { useDeviceType } from '@/hooks/use-device-type';
-import { cn } from './lib/utils';
+import { shuffle } from 'lodash';
 
 export default function App() {
   const [responses, setResponses] = useState<
     Array<{ questionId: string; agreed: boolean }>
   >([]);
   const [gameComplete, setGameComplete] = useState(false);
-  const [randomQuestions, setRandomQuestions] = useState(questions);
-  const deviceType = useDeviceType();
+  const [randomQuestions, setRandomQuestions] = useState<Question[]>([]);
+  const [alignmentResult, setAlignmentResult] =
+    useState<AlignmentResult | null>(null);
+
+  const shuffleQuestions = () => {
+    const categories = ['Economic', 'Social', 'Foreign', 'Domestic'];
+    const selectedQuestions: Question[] = [];
+
+    categories.forEach((category) => {
+      const categoryQuestions = questions.filter(
+        (q) => q.category === category
+      );
+      const shuffled = shuffle(categoryQuestions);
+      selectedQuestions.push(...shuffled.slice(0, 5));
+    });
+
+    setRandomQuestions(shuffle(selectedQuestions));
+  };
 
   useEffect(() => {
-    const shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
-    setRandomQuestions(shuffledQuestions.slice(0, 20));
+    shuffleQuestions();
   }, []);
 
   const handleResponse = (questionId: string, agreed: boolean) => {
-    console.log(`Question ID: ${questionId}, Agreed: ${agreed}`);
+    const question = randomQuestions.find((q) => q.id === questionId);
+    if (!question) return;
 
     setResponses((prev) => [...prev, { questionId, agreed }]);
     if (responses.length + 1 === randomQuestions.length) {
+      const result = calculateAlignment(randomQuestions, responses);
+      setAlignmentResult(result);
       setGameComplete(true);
     }
   };
@@ -31,15 +48,13 @@ export default function App() {
   const handleRestart = () => {
     setResponses([]);
     setGameComplete(false);
-
-    // Reshuffle questions on restart
-    const shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
-    setRandomQuestions(shuffledQuestions.slice(0, 20));
+    setAlignmentResult(null);
+    shuffleQuestions();
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-gradient-to-b from-background to-muted px-4 py-8">
-      <header className="pt-4 text-center sm:pt-6 md:pt-8">
+    <div className="flex flex-col h-screen">
+      <header className="flex-shrink-0 pt-4 text-center sm:pt-6 md:pt-8">
         <h1 className="mb-2 text-2xl font-bold sm:text-3xl md:text-4xl">
           LeftRight
         </h1>
@@ -48,32 +63,25 @@ export default function App() {
         </p>
       </header>
 
-      <main className="flex w-full flex-1 items-center justify-center py-12 sm:py-16 md:py-20">
-        <div
-          className={cn(
-            'w-full transition-all duration-300',
-            deviceType === 'mobile'
-              ? 'max-w-[95vw]'
-              : deviceType === 'tablet'
-                ? 'max-w-[70vw]'
-                : 'max-w-xl'
-          )}
-        >
+      <main className="flex flex-1 items-center justify-center">
+        <div className="w-full max-w-[95vw] sm:max-w-[70vw] md:max-w-xl px-4">
           {!gameComplete ? (
             <CardStack
               questions={randomQuestions}
               onResponse={handleResponse}
             />
           ) : (
-            <ResultScreen
-              result={calculateAlignment(randomQuestions, responses)}
-              onRestart={handleRestart}
-            />
+            alignmentResult && (
+              <ResultScreen
+                result={alignmentResult}
+                onRestart={handleRestart}
+              />
+            )
           )}
         </div>
       </main>
 
-      <footer className="pb-4 text-center text-xs text-muted-foreground sm:pb-6 sm:text-sm md:pb-8">
+      <footer className="flex-shrink-0 pb-6 text-center text-xs text-muted-foreground sm:pb-6 med:pb-8 sm:text-sm">
         Made for fun, not serious metrics
       </footer>
     </div>
