@@ -5,6 +5,7 @@ import { CardStack } from '@/components/CardStack';
 import { ResultScreen } from '@/components/ResultScreen';
 import { Toaster } from '@/components/ui/toaster';
 import { shuffle } from 'lodash';
+import { useDeviceType } from './hooks/use-device-type';
 
 export default function App() {
   const [responses, setResponses] = useState<
@@ -14,6 +15,14 @@ export default function App() {
   const [randomQuestions, setRandomQuestions] = useState<Question[]>([]);
   const [alignmentResult, setAlignmentResult] =
     useState<AlignmentResult | null>(null);
+
+  const deviceType = useDeviceType();
+  const paddingB =
+    deviceType === 'mobile'
+      ? 'pb-[15vh]'
+      : deviceType === 'tablet'
+        ? 'pb-[10vh]'
+        : 'pb-[13vh]';
 
   const shuffleQuestions = () => {
     const categories = ['Economic', 'Social', 'Foreign', 'Domestic'];
@@ -64,7 +73,7 @@ export default function App() {
         </p>
       </header>
 
-      <main className="flex flex-1 items-center justify-center">
+      <main className={`flex flex-1 items-center justify-center ${paddingB}`}>
         <div className="w-full max-w-[95vw] sm:max-w-[70vw] md:max-w-xl px-4">
           {!gameComplete ? (
             <CardStack
