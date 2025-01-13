@@ -24,8 +24,8 @@ export function QuestionCard({
       'rgba(220, 38, 38, 0.8)', // Strong red
       'rgba(220, 38, 38, 0.5)', // Muted red
       'rgba(255, 255, 255, 1)', // Neutral (white)
-      'rgba(16, 185, 129, 0.5)', // Muted green
-      'rgba(16, 185, 129, 0.8)', // Strong green
+      'rgba(37, 99, 235, 0.5)', // Muted blue
+      'rgba(37, 99, 235, 0.8)', // Strong blue
     ]
   );
 
