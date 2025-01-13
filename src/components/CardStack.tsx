@@ -29,10 +29,10 @@ export function CardStack({ questions, onResponse }: CardStackProps) {
       className={cn(
         'relative mx-auto transition-all duration-300',
         deviceType === 'mobile'
-          ? 'aspect-[4/5] w-full h-[30vh]'
+          ? 'aspect-[4/5] w-full h-[calc(100vh-68vh)]'
           : deviceType === 'tablet'
-            ? 'aspect-[3/4] w-full h-[45vh]'
-            : 'aspect-[3/4] w-full max-w-md h-[40vh]'
+            ? 'aspect-[3/4] w-full h-[calc(100vh-65vh)]'
+            : 'aspect-[3/4] w-full max-w-md h-[calc(100vh-40vh)]'
       )}
     >
       <AnimatePresence>

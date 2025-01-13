@@ -35,7 +35,7 @@ export function QuestionCard({
     deviceType === 'mobile'
       ? 'py-[2vh]'
       : deviceType === 'tablet'
-        ? 'py-[8vh]'
+        ? 'py-[3vh]'
         : 'py-[5vh]';
   const textSize =
     deviceType === 'mobile'

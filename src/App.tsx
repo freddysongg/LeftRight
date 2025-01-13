@@ -19,10 +19,17 @@ export default function App() {
   const deviceType = useDeviceType();
   const paddingB =
     deviceType === 'mobile'
-      ? 'pb-[15vh]'
+      ? 'pt-[calc(100vh-95vh)]'
       : deviceType === 'tablet'
-        ? 'pb-[10vh]'
-        : 'pb-[13vh]';
+        ? 'pt-[calc(100vh-97vh)]'
+        : 'pt-[calc(100vh-98vh)]';
+
+  const paddingT =
+    deviceType === 'mobile'
+      ? 'pb-[calc(100vh-70vh)]'
+      : deviceType === 'tablet'
+        ? 'pb-[calc(100vh-65vh)]'
+        : 'pb-[calc(100vh-97vh)]';
 
   const shuffleQuestions = () => {
     const categories = ['Economic', 'Social', 'Foreign', 'Domestic'];
@@ -63,7 +70,8 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen overflow-hidden">
+      {/* Header */}
       <header className="flex-shrink-0 pt-4 text-center sm:pt-6 md:pt-8">
         <h1 className="mb-2 text-2xl font-bold sm:text-3xl md:text-4xl">
           LeftRight
@@ -73,7 +81,10 @@ export default function App() {
         </p>
       </header>
 
-      <main className={`flex flex-1 items-center justify-center ${paddingB}`}>
+      {/* Main Content */}
+      <main
+        className={`flex-1 flex items-center justify-center ${paddingB} overflow-hidden`}
+      >
         <div className="w-full max-w-[95vw] sm:max-w-[70vw] md:max-w-xl px-4">
           {!gameComplete ? (
             <CardStack
@@ -91,7 +102,10 @@ export default function App() {
         </div>
       </main>
 
-      <footer className="flex-shrink-0 pb-6 text-center text-xs text-muted-foreground sm:pb-6 med:pb-8 sm:text-sm">
+      {/* Footer */}
+      <footer
+        className={`flex-shrink-0 text-center text-xs text-muted-foreground sm:text-sm ${paddingT}`}
+      >
         Made for fun, not serious metrics
       </footer>
       <Toaster />
