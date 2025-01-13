@@ -369,4 +369,184 @@ export const questions: Question[] = [
       democrat: -0.4,
     },
   },
+  {
+    id: '41',
+    text: 'Every major city should have a dedicated e-sports arena funded by the government.',
+    category: 'economic',
+    weight: {
+      republican: -0.4,
+      democrat: 0.5,
+    },
+  },
+  {
+    id: '42',
+    text: 'Social media platforms should be fined for promoting fake news.',
+    category: 'social',
+    weight: {
+      republican: -0.6,
+      democrat: 0.8,
+    },
+  },
+  {
+    id: '43',
+    text: 'Drivers should be taxed extra for owning gas-powered cars after 2030.',
+    category: 'economic',
+    weight: {
+      republican: -0.9,
+      democrat: 0.8,
+    },
+  },
+  {
+    id: '44',
+    text: 'Schools should replace gym class with mandatory mental health sessions.',
+    category: 'domestic',
+    weight: {
+      republican: -0.7,
+      democrat: 0.9,
+    },
+  },
+  {
+    id: '45',
+    text: 'The government should subsidize TikTok creators who promote fitness and healthy living.',
+    category: 'economic',
+    weight: {
+      republican: -0.6,
+      democrat: 0.7,
+    },
+  },
+  {
+    id: '46',
+    text: 'Streaming all major sports events should be free for everyone.',
+    category: 'social',
+    weight: {
+      republican: -0.4,
+      democrat: 0.6,
+    },
+  },
+  {
+    id: '47',
+    text: 'Food delivery apps should pay a “health impact tax” for promoting fast food.',
+    category: 'economic',
+    weight: {
+      republican: -0.8,
+      democrat: 0.7,
+    },
+  },
+  {
+    id: '48',
+    text: 'Public schools should have a “tech detox” day where phones are banned.',
+    category: 'domestic',
+    weight: {
+      republican: 0.6,
+      democrat: -0.6,
+    },
+  },
+  {
+    id: '49',
+    text: 'AI-generated art should be banned from entering art competitions.',
+    category: 'social',
+    weight: {
+      republican: 0.3,
+      democrat: -0.4,
+    },
+  },
+  {
+    id: '50',
+    text: 'The government should fund universal high-speed internet for rural areas.',
+    category: 'economic',
+    weight: {
+      republican: -0.5,
+      democrat: 0.8,
+    },
+  },
+  {
+    id: '51',
+    text: 'There should be mandatory recycling programs in every household.',
+    category: 'domestic',
+    weight: {
+      republican: -0.7,
+      democrat: 0.9,
+    },
+  },
+  {
+    id: '52',
+    text: 'Virtual influencers should have to disclose if their followers are bots.',
+    category: 'social',
+    weight: {
+      republican: 0.4,
+      democrat: -0.5,
+    },
+  },
+  {
+    id: '53',
+    text: 'The government should ban influencer marketing targeting kids under 13.',
+    category: 'domestic',
+    weight: {
+      republican: -0.6,
+      democrat: 0.8,
+    },
+  },
+  {
+    id: '54',
+    text: 'Electric vehicle (EV) owners should pay a fee for using public charging stations.',
+    category: 'economic',
+    weight: {
+      republican: 0.6,
+      democrat: -0.5,
+    },
+  },
+  {
+    id: '55',
+    text: 'Remote work should be a legal right for jobs that allow it.',
+    category: 'economic',
+    weight: {
+      republican: -0.7,
+      democrat: 0.9,
+    },
+  },
+  {
+    id: '56',
+    text: 'Companies that use unpaid interns should be banned from government contracts.',
+    category: 'economic',
+    weight: {
+      republican: -0.8,
+      democrat: 0.7,
+    },
+  },
+  {
+    id: '57',
+    text: 'Universities should be required to disclose how much alumni earn after graduation.',
+    category: 'economic',
+    weight: {
+      republican: 0.5,
+      democrat: -0.6,
+    },
+  },
+  {
+    id: '58',
+    text: 'There should be a legal age limit for politicians over 75.',
+    category: 'domestic',
+    weight: {
+      republican: 0.6,
+      democrat: 0.4,
+    },
+  },
+  {
+    id: '59',
+    text: 'The U.S. should adopt a national four-day school week to improve student well-being.',
+    category: 'domestic',
+    weight: {
+      republican: -0.6,
+      democrat: 0.7,
+    },
+  },
+  {
+    id: '60',
+    text: 'AI companies should pay royalties to workers whose jobs are replaced by automation.',
+    category: 'economic',
+    weight: {
+      republican: -0.5,
+      democrat: 0.8,
+    },
+  },
 ];
