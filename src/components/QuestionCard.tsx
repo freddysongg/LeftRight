@@ -2,6 +2,7 @@ import { motion, PanInfo, useMotionValue, useTransform } from 'framer-motion';
 import { Question } from '@/lib/questions';
 import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
+import { useDeviceType } from '@/hooks/use-device-type';
 
 interface QuestionCardProps {
   question: Question;
@@ -29,6 +30,20 @@ export function QuestionCard({
     ]
   );
 
+  const deviceType = useDeviceType();
+  const paddingY =
+    deviceType === 'mobile'
+      ? 'py-[2vh]'
+      : deviceType === 'tablet'
+        ? 'py-[8vh]'
+        : 'py-[5vh]';
+  const textSize =
+    deviceType === 'mobile'
+      ? 'text-base'
+      : deviceType === 'tablet'
+        ? 'text-xl'
+        : 'text-xl';
+
   const handleDragEnd = (
     _: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
@@ -44,23 +59,32 @@ export function QuestionCard({
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
       onDragEnd={handleDragEnd}
-      className={cn('absolute w-full', className)}
+      className={cn('absolute w-full h-full', className)}
     >
       <motion.div
-        style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)' }}
-        className="rounded-lg"
+        style={{
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+        }}
+        className="rounded-lg h-full w-full"
       >
-        <Card className="overflow-hidden">
-          <motion.div style={{ backgroundColor }} className="p-4 sm:p-6">
+        <Card className="h-full w-full overflow-hidden">
+          <motion.div
+            style={{ backgroundColor }}
+            className="h-full w-full flex flex-col justify-between p-4 sm:p-6"
+          >
             <div className="relative">
-              <div className="mb-4">
+              <div className="mb-4 py-3">
                 <span className="inline-block rounded-full bg-muted px-3 py-1 text-xs sm:text-sm">
                   {question.category}
                 </span>
               </div>
-              <p className="text-base font-medium leading-relaxed sm:text-xl">
-                {question.text}
-              </p>
+              <div
+                className={`flex-grow flex items-center justify-center ${paddingY}`}
+              >
+                <p className={`font-medium leading-relaxed ${textSize}`}>
+                  {question.text}
+                </p>
+              </div>
             </div>
           </motion.div>
         </Card>
