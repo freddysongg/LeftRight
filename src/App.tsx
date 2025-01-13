@@ -23,7 +23,7 @@ export default function App() {
         (q) => q.category === category
       );
       const shuffled = shuffle(categoryQuestions);
-      selectedQuestions.push(...shuffled.slice(0, 5));
+      selectedQuestions.push(...shuffled.slice(0, 3));
     });
 
     setRandomQuestions(shuffle(selectedQuestions));
