@@ -3,6 +3,7 @@ import { questions, Question } from '@/lib/questions';
 import { calculateAlignment, AlignmentResult } from '@/lib/calculate-alignment';
 import { CardStack } from '@/components/CardStack';
 import { ResultScreen } from '@/components/ResultScreen';
+import { Toaster } from '@/components/ui/toaster';
 import { shuffle } from 'lodash';
 
 export default function App() {
@@ -84,6 +85,7 @@ export default function App() {
       <footer className="flex-shrink-0 pb-6 text-center text-xs text-muted-foreground sm:pb-6 med:pb-8 sm:text-sm">
         Made for fun, not serious metrics
       </footer>
+      <Toaster />
     </div>
   );
 }

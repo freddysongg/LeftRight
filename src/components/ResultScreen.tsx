@@ -2,6 +2,9 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AlignmentResult } from '@/lib/calculate-alignment';
 import { Share2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { useDeviceType } from '@/hooks/use-device-type';
+import { useNavigate } from 'react-router-dom';
 
 interface ResultScreenProps {
   result: AlignmentResult;
@@ -9,6 +12,46 @@ interface ResultScreenProps {
 }
 
 export function ResultScreen({ result, onRestart }: ResultScreenProps) {
+  const { toast } = useToast();
+  const deviceType = useDeviceType();
+  const navigate = useNavigate();
+
+  const handleShare = async () => {
+    const shareUrl = window.location.href;
+
+    if (deviceType === 'mobile' && navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Check out my Political Alignment!',
+          text: `I align more with the ${
+            result.primaryAlignment === 'democrat' ? 'Democratic' : 'Republican'
+          } party!`,
+          url: shareUrl,
+        });
+        console.log('Shared successfully!');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        toast({
+          title: 'Link Copied!',
+          description: 'The link has been copied to your clipboard.',
+          variant: 'default',
+        });
+        navigate('/');
+      } catch (error) {
+        console.error('Error copying link:', error);
+        toast({
+          title: 'Error',
+          description: 'Failed to copy the link. Please try again.',
+          variant: 'destructive',
+        });
+      }
+    }
+  };
+
   const democratPercent = Math.round(result.democrat);
   const republicanPercent = Math.round(result.republican);
 
@@ -87,7 +130,10 @@ export function ResultScreen({ result, onRestart }: ResultScreenProps) {
         >
           Try Again
         </Button>
-        <Button className="flex-1 gap-2 text-sm sm:text-base">
+        <Button
+          onClick={handleShare}
+          className="flex-1 gap-2 text-sm sm:text-base"
+        >
           <Share2 className="h-4 w-4" />
           Share
         </Button>
