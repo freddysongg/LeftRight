@@ -17,15 +17,25 @@ export default function App() {
     useState<AlignmentResult | null>(null);
 
   const deviceType = useDeviceType();
-  const paddingB =
-    deviceType === 'mobile'
+  const paddingB = gameComplete
+    ? deviceType === 'mobile'
+      ? 'pt-[calc(100vh-94vh)]'
+      : deviceType === 'tablet'
+        ? 'pt-[calc(100vh-85vh)]'
+        : 'pt-[calc(100vh-92vh)]'
+    : deviceType === 'mobile'
       ? 'pt-[calc(100vh-95vh)]'
       : deviceType === 'tablet'
         ? 'pt-[calc(100vh-97vh)]'
         : 'pt-[calc(100vh-98vh)]';
 
-  const paddingT =
-    deviceType === 'mobile'
+  const paddingT = gameComplete
+    ? deviceType === 'mobile'
+      ? 'pb-[calc(100vh-92vh)]'
+      : deviceType === 'tablet'
+        ? 'pb-[calc(100vh-75vh)]'
+        : 'pb-[calc(100vh-88vh)]'
+    : deviceType === 'mobile'
       ? 'pb-[calc(100vh-70vh)]'
       : deviceType === 'tablet'
         ? 'pb-[calc(100vh-65vh)]'
