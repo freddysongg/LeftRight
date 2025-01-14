@@ -19,7 +19,7 @@ export default function App() {
   const deviceType = useDeviceType();
   const paddingB = gameComplete
     ? deviceType === 'mobile'
-      ? 'pb-[calc(100vh-98vh)]'
+      ? 'pb-[calc(100vh-100vh)]'
       : deviceType === 'tablet'
         ? 'pb-[calc(100vh-97vh)]'
         : 'pb-[calc(100vh-100vh)]'
@@ -31,7 +31,7 @@ export default function App() {
 
   const paddingT = gameComplete
     ? deviceType === 'mobile'
-      ? 'pb-[calc(100vh-80vh)]'
+      ? 'pb-[calc(100vh-84vh)]'
       : deviceType === 'tablet'
         ? 'pb-[calc(100vh-75vh)]'
         : 'pb-[calc(100vh-98vh)]'
