@@ -21,7 +21,7 @@ html,
 body {
   overflow: hidden;
   height: 100%;
-  overscroll-behavior: none;
+  /* overscroll-behavior: none; */
 }
 
 #root {

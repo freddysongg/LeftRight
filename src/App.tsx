@@ -19,22 +19,22 @@ export default function App() {
   const deviceType = useDeviceType();
   const paddingB = gameComplete
     ? deviceType === 'mobile'
-      ? 'pt-[calc(100vh-94vh)]'
+      ? 'pb-[calc(100vh-98vh)]'
       : deviceType === 'tablet'
-        ? 'pt-[calc(100vh-85vh)]'
-        : 'pt-[calc(100vh-92vh)]'
+        ? 'pb-[calc(100vh-97vh)]'
+        : 'pb-[calc(100vh-100vh)]'
     : deviceType === 'mobile'
-      ? 'pt-[calc(100vh-95vh)]'
+      ? 'pt-[calc(100vh-90vh)]'
       : deviceType === 'tablet'
         ? 'pt-[calc(100vh-97vh)]'
         : 'pt-[calc(100vh-98vh)]';
 
   const paddingT = gameComplete
     ? deviceType === 'mobile'
-      ? 'pb-[calc(100vh-92vh)]'
+      ? 'pb-[calc(100vh-80vh)]'
       : deviceType === 'tablet'
         ? 'pb-[calc(100vh-75vh)]'
-        : 'pb-[calc(100vh-88vh)]'
+        : 'pb-[calc(100vh-98vh)]'
     : deviceType === 'mobile'
       ? 'pb-[calc(100vh-70vh)]'
       : deviceType === 'tablet'

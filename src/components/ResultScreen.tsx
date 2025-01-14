@@ -58,9 +58,24 @@ export function ResultScreen({ result, onRestart }: ResultScreenProps) {
   return (
     <Card className="w-full p-6 sm:p-8">
       {/* Heading */}
-      <h2 className="mb-6 text-center text-2xl font-bold sm:text-3xl">
-        Your Results
-      </h2>
+      <div className="relative mb-6">
+        <h2 className="text-center text-2xl font-bold sm:text-3xl">
+          Your Results
+        </h2>
+        {/* Images */}
+        <div className="absolute inset-x-0 top-0 flex justify-between pointer-events-none">
+          <img
+            src="/obama.gif"
+            alt="Obama"
+            className="w-10 h-10 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-16 lg:h-16"
+          />
+          <img
+            src="/trump.gif"
+            alt="Trump"
+            className="w-10 h-10 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-16 lg:h-16"
+          />
+        </div>
+      </div>
 
       {/* Main Alignment Bar */}
       <div className="mb-5">
